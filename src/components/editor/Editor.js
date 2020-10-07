@@ -25,7 +25,7 @@ class Editor extends React.Component {
 	}
 
 	runCode() {
-		let data = { answer: this.state.code };
+		let data = { code: this.state.code };
 		axios
 			.post('https://zkliu8jgp0.execute-api.us-east-2.amazonaws.com/dev/execute', data)
 			.then((res) => {
@@ -50,6 +50,8 @@ class Editor extends React.Component {
 						editorProps={{
 							$blockScrolling: true
 						}}
+						width={800}
+						height={800}
 						enableBasicAutocompletion={true}
 						enableLiveAutocompletion={true}
 						enableSnippets={true}
