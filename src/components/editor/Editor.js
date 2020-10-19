@@ -12,11 +12,18 @@ class Editor extends React.Component {
 		super();
 		this.state = {
 			code: '',
-			result: ''
+			result: '',
+			isloggedin: sessionStorage.getItem('username') === null ? false : true
 		};
 		this.onChange = this.onChange.bind(this);
 		this.runCode = this.runCode.bind(this);
 	}
+
+	// async componentDidMount() {
+	// 	await this.setState({
+	// 		isloggedin: sessionStorage.getItem('username') === null ? false : true
+	// 	});
+	// }
 
 	async onChange(newValue) {
 		await this.setState({
@@ -39,30 +46,34 @@ class Editor extends React.Component {
 	}
 
 	render() {
+		const isloggedin = this.state.isloggedin;
 		return (
-			<div className="row">
-				<div className="col-xs-6" id="editor">
-					<AceEditor
-						mode="python"
-						theme="dracula"
-						onChange={this.onChange}
-						name="UNIQUE_ID_OF_DIV"
-						editorProps={{
-							$blockScrolling: true
-						}}
-						width={800}
-						height={800}
-						enableBasicAutocompletion={true}
-						enableLiveAutocompletion={true}
-						enableSnippets={true}
-						fontSize={20}
-					/>
-				</div>
-				<div className="col-xs-6">
-					<button id="run" onClick={this.runCode}>
-						Run
-					</button>
-					<div id="result">{this.state.result}</div>
+			<div>
+				{isloggedin && <h1>Welcome {sessionStorage.getItem('username')}</h1>}
+				<div className="row">
+					<div className="col-xs-6" id="editor">
+						<AceEditor
+							mode="python"
+							theme="dracula"
+							onChange={this.onChange}
+							name="UNIQUE_ID_OF_DIV"
+							editorProps={{
+								$blockScrolling: true
+							}}
+							width={800}
+							height={800}
+							enableBasicAutocompletion={true}
+							enableLiveAutocompletion={true}
+							enableSnippets={true}
+							fontSize={20}
+						/>
+					</div>
+					<div className="col-xs-6">
+						<button id="run" onClick={this.runCode}>
+							Run
+						</button>
+						<div id="result">{this.state.result}</div>
+					</div>
 				</div>
 			</div>
 		);
