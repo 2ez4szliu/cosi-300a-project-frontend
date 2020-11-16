@@ -6,24 +6,23 @@ import 'ace-builds/src-noconflict/theme-dracula';
 import AceEditor from 'react-ace';
 import axios from 'axios';
 import './Editor.css';
+import { HOST_URL } from '../../constants';
 
 class Editor extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
-			code: '',
+			code: props.location.code,
+			path: props.location.path,
 			result: '',
 			isloggedin: sessionStorage.getItem('username') === null ? false : true
 		};
+		console.log(this.state);
 		this.onChange = this.onChange.bind(this);
 		this.runCode = this.runCode.bind(this);
+		this.handlePathChange = this.handlePathChange.bind(this);
+		this.submitCode = this.submitCode.bind(this);
 	}
-
-	// async componentDidMount() {
-	// 	await this.setState({
-	// 		isloggedin: sessionStorage.getItem('username') === null ? false : true
-	// 	});
-	// }
 
 	async onChange(newValue) {
 		await this.setState({
@@ -31,18 +30,42 @@ class Editor extends React.Component {
 		});
 	}
 
-	runCode() {
+	async handlePathChange(event) {
+		await this.setState({
+			path: event.target.value
+		});
+		console.log(this.state.path);
+	}
+
+	async runCode() {
 		let data = { code: this.state.code };
-		axios
-			.post('https://zkliu8jgp0.execute-api.us-east-2.amazonaws.com/dev/execute', data)
-			.then((res) => {
-				this.setState({
-					result: res['data']
-				});
-			})
-			.catch((e) => {
-				console.log(e);
+		try {
+			let response = await axios.post('https://zkliu8jgp0.execute-api.us-east-2.amazonaws.com/dev/execute', data);
+			this.setState({
+				result: response['data']
 			});
+			this.submitCode();
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	async submitCode() {
+		if (sessionStorage.getItem('username') == null) {
+			alert('You must first logged in to submit the code!');
+			return;
+		}
+		let submission = {
+			path: this.state.path,
+			user: sessionStorage.getItem('username'),
+			code: this.state.code
+		};
+		try {
+			let response = await axios.post(HOST_URL, submission);
+			alert('Successfully submitted!');
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	render() {
@@ -60,6 +83,7 @@ class Editor extends React.Component {
 							editorProps={{
 								$blockScrolling: true
 							}}
+							value={this.state.code}
 							width={800}
 							height={800}
 							enableBasicAutocompletion={true}
@@ -69,6 +93,10 @@ class Editor extends React.Component {
 						/>
 					</div>
 					<div className="col-xs-6">
+						<div>
+							path:
+							<input type="text" value={this.state.path} onChange={this.handlePathChange} />
+						</div>
 						<button id="run" onClick={this.runCode}>
 							Run
 						</button>

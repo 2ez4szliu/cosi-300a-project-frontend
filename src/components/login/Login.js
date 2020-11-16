@@ -1,4 +1,5 @@
 import React from 'react';
+import { HOST_URL } from '../../constants';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -19,7 +20,7 @@ class Login extends React.Component {
 	};
 	onSubmit = (event) => {
 		event.preventDefault();
-		fetch('http://localhost:4000/authenticate', {
+		fetch(HOST_URL + 'authenticate', {
 			method: 'POST',
 			body: JSON.stringify(this.state),
 			headers: {
