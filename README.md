@@ -1,68 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Intro
 
-## Available Scripts
+This project is an online coding envirment that allows user to run python code online and store/retrive their submissions.
 
-In the project directory, you can run:
+## How to run the application
 
+The project is deployed on AWS, you can try the application online [here](http://ec2-18-224-108-229.us-east-2.compute.amazonaws.com:3000).
+
+You can also clone this github repository to your local environment, and run:
+
+### `npm install`
+
+to install all dependencies.
+
+After installing all dependencies, run:
 ### `npm start`
-
-Runs the app in the development mode.<br />
+It runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+However, users must create their own secret files which contains database access key.
 
-### `npm test`
+## Application Features
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Running Python Code
 
-### `npm run build`
+The application uses [ACE Editor](https://ace.c9.io), user can type python code in the editor, and click run button to see the result.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The code is evaluated using a support program that runs on AWS Lambda.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+### Register/Login
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The Application provides user registration and authentication, user can register their account on the login page page.
 
-### `npm run eject`
+### View Submission History
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Users can view their submission histroy after logged in.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
